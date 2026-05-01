@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <title>Taekwondo Smart Sock</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/layout.css">
+  <link rel="manifest" href="manifest.json">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js" defer></script>
+</head>
+<body>
+  <header>
+    <div class="header-brand">
+      <span class="brand-icon">🥋</span>
+      <h1>TKD Smart Sock</h1>
+    </div>
+    <div id="ble-status" class="status disconnected">Offline</div>
+  </header>
+
+  <main>
+    <section id="dashboard" class="tab-content active">
+
+      <div class="controls">
+        <button id="btn-connect" class="btn primary">Connect</button>
+        <button id="btn-disconnect" class="btn secondary hidden">Disconnect</button>
+        <button id="btn-start-session" class="btn action">Start Session</button>
+        <button id="btn-stop-session" class="btn danger hidden">Stop</button>
+        <button id="btn-save-session" class="btn save hidden">💾 Save</button>
+      </div>
+
+      <div class="stats-container">
+        <div class="stat-box stat-strikes">
+          <div class="stat-icon">⚡</div>
+          <h3>Total Strikes</h3>
+          <p id="total-strikes">0</p>
+        </div>
+        <div class="stat-box stat-force">
+          <div class="stat-icon">💥</div>
+          <h3>Max Force</h3>
+          <p id="max-force">0</p>
+        </div>
+      </div>
+
+      <div class="chart-container">
+        <canvas id="strikeChart"></canvas>
+      </div>
+
+      <div class="log-container">
+        <h3>📋 Live Feed</h3>
+        <ul id="strike-log"></ul>
+      </div>
+    </section>
+
+    <section id="calibration" class="tab-content">
+      <h2>⚙️ Sensor Calibration</h2>
+      <p>Calibrate the force sensors for accurate readings.</p>
+      <div class="calibration-panel">
+        <div class="sensor-row">
+          <span>Instep</span>
+          <button class="btn small">Calibrate</button>
+        </div>
+        <div class="sensor-row">
+          <span>Ball</span>
+          <button class="btn small">Calibrate</button>
+        </div>
+        <div class="sensor-row">
+          <span>Heel</span>
+          <button class="btn small">Calibrate</button>
+        </div>
+        <div class="sensor-row">
+          <span>FSR Pad</span>
+          <button class="btn small">Calibrate</button>
+        </div>
+      </div>
+    </section>
+
+    <section id="rack" class="tab-content">
+      <h2>🧦 Equipment Rack</h2>
+      <p>Manage your paired devices and profiles.</p>
+      <div class="rack-grid">
+        <div class="device-card active-device">
+          <h3>Smart Sock (Left)</h3>
+          <p>Battery: 85%</p>
+        </div>
+        <div class="device-card">
+          <h3>Smart Sock (Right)</h3>
+          <p>Battery: --%</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Bottom Navbar -->
+  <nav class="bottom-nav">
+    <div class="nav-pill" id="nav-pill"></div>
+    <button class="tab-btn active" data-tab="dashboard">
+      <span class="tab-icon">📊</span>
+      <span class="tab-label">Dashboard</span>
+    </button>
+    <button class="tab-btn" data-tab="calibration">
+      <span class="tab-icon">⚙️</span>
+      <span class="tab-label">Calibrate</span>
+    </button>
+    <button class="tab-btn" data-tab="rack">
+      <span class="tab-icon">🧦</span>
+      <span class="tab-label">Rack</span>
+    </button>
+  </nav>
+
+  <!-- Toast Container -->
+  <div id="toast-container"></div>
+
+  <!-- Modals -->
+  <div id="session-options-modal" class="modal hidden">
+    <div class="modal-backdrop"></div>
+    <div class="modal-content">
+      <h2>🏋️ Session Options</h2>
+      <p>Choose how you want to proceed.</p>
+      <div class="modal-actions">
+        <button id="btn-modal-new-session" class="btn primary">Start New Session</button>
+        <button id="btn-modal-load-session" class="btn secondary">Load Previous</button>
+        <button id="btn-modal-cancel" class="btn cancel">Cancel</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="load-sessions-modal" class="modal hidden">
+    <div class="modal-backdrop"></div>
+    <div class="modal-content">
+      <h2>📂 Load Session</h2>
+      <p>Select a previously saved session to continue.</p>
+      <div class="sessions-list" id="saved-sessions-list">
+        <!-- Dynamically populated -->
+      </div>
+      <div class="modal-actions">
+        <button id="btn-load-cancel" class="btn cancel">Cancel</button>
+      </div>
+    </div>
+  </div>
+
+  <script type="module" src="js/main.js"></script>
+</body>
+</html>

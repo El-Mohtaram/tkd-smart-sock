@@ -1,0 +1,295 @@
+:root {
+  --bg: #F0F2F5;
+  --card-bg: #FFFFFF;
+  --primary: #64B5F6;
+  --secondary: #F06292;
+  --accent: #FFD54F;
+  --success: #81C784;
+  --danger: #EF5350;
+  --text: #455A64;
+  --text-light: #78909C;
+  --text-white: #FFFFFF;
+  --font: 'Poppins', sans-serif;
+  --radius: 24px;
+  --radius-pill: 50px;
+  --radius-sm: 16px;
+  --shadow-clay: 8px 8px 16px #d1d9e6, -8px -8px 16px #ffffff;
+  --shadow-clay-sm: 4px 4px 8px #d1d9e6, -4px -4px 8px #ffffff;
+  --shadow-btn: 4px 4px 10px #d1d9e6, -4px -4px 10px #ffffff,
+                inset 0 1px 0 rgba(255,255,255,0.9);
+  --shadow-btn-active: inset 3px 3px 6px #d1d9e6,
+                       inset -3px -3px 6px #ffffff;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: var(--font);
+  background: var(--bg);
+  color: var(--text);
+  overflow-x: hidden;
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, h4 { font-weight: 800; }
+
+/* =========================================
+   BUTTONS — Squishy 3D Clay Pills
+   ========================================= */
+.btn {
+  font-family: var(--font);
+  font-size: 0.9rem;
+  font-weight: 700;
+  padding: 12px 22px;
+  min-height: 50px;
+  border: none;
+  border-radius: var(--radius-pill);
+  cursor: pointer;
+  transition: all 0.15s ease;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  box-shadow: var(--shadow-btn);
+  background: var(--card-bg);
+  color: var(--text);
+  -webkit-tap-highlight-color: transparent;
+}
+
+.btn:hover {
+  transform: translateY(-1px);
+}
+
+.btn:active {
+  transform: translateY(2px) scale(0.98);
+  box-shadow: var(--shadow-btn-active);
+}
+
+.btn.primary {
+  background: var(--primary);
+  color: var(--text-white);
+  box-shadow: 4px 4px 12px rgba(100,181,246,0.4),
+              -2px -2px 8px #fff,
+              inset 0 1px 0 rgba(255,255,255,0.4);
+}
+
+.btn.secondary {
+  background: var(--card-bg);
+  color: var(--primary);
+  border: 2px solid var(--primary);
+}
+
+.btn.action {
+  background: var(--success);
+  color: var(--text-white);
+  box-shadow: 4px 4px 12px rgba(129,199,132,0.4),
+              -2px -2px 8px #fff,
+              inset 0 1px 0 rgba(255,255,255,0.4);
+}
+
+.btn.danger {
+  background: var(--secondary);
+  color: var(--text-white);
+  box-shadow: 4px 4px 12px rgba(240,98,146,0.4),
+              -2px -2px 8px #fff,
+              inset 0 1px 0 rgba(255,255,255,0.4);
+}
+
+.btn.save {
+  background: var(--accent);
+  color: var(--text);
+  box-shadow: 4px 4px 12px rgba(255,213,79,0.4),
+              -2px -2px 8px #fff,
+              inset 0 1px 0 rgba(255,255,255,0.5);
+}
+
+.btn.cancel {
+  background: var(--bg);
+  color: var(--text-light);
+  box-shadow: var(--shadow-btn);
+}
+
+.btn.small {
+  padding: 8px 16px;
+  min-height: 40px;
+  font-size: 0.75rem;
+  border-radius: var(--radius-sm);
+  background: var(--primary);
+  color: var(--text-white);
+}
+
+.hidden { display: none !important; }
+
+/* =========================================
+   STATUS BADGE — Soft 3D Pill
+   ========================================= */
+.status {
+  padding: 8px 18px;
+  border-radius: var(--radius-pill);
+  font-size: 0.8rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  transition: all 0.3s ease;
+}
+
+.status.disconnected {
+  background: #FFCDD2;
+  color: #C62828;
+  box-shadow: 3px 3px 8px rgba(198,40,40,0.15),
+              -3px -3px 8px #fff;
+}
+
+.status.connected {
+  background: #C8E6C9;
+  color: #2E7D32;
+  box-shadow: 3px 3px 8px rgba(46,125,50,0.15),
+              -3px -3px 8px #fff;
+}
+
+/* =========================================
+   MODALS — Floating 3D Glass Dialog
+   ========================================= */
+.modal {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2000;
+}
+
+.modal-backdrop {
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(69, 90, 100, 0.3);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+}
+
+.modal-content {
+  position: relative;
+  z-index: 1;
+  background: var(--card-bg);
+  padding: 35px 30px;
+  border-radius: 30px;
+  width: 90%;
+  max-width: 400px;
+  text-align: center;
+  box-shadow: var(--shadow-clay);
+  animation: modalBounce 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+@keyframes modalBounce {
+  from { opacity: 0; transform: scale(0.85) translateY(20px); }
+  to   { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+.modal-content h2 {
+  margin-bottom: 8px;
+  color: var(--text);
+  font-size: 1.5rem;
+}
+
+.modal-content p {
+  color: var(--text-light);
+  margin-bottom: 25px;
+  font-size: 0.95rem;
+}
+
+.modal-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.sessions-list {
+  max-height: 280px;
+  overflow-y: auto;
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 4px;
+}
+
+.sessions-list::-webkit-scrollbar { width: 6px; }
+.sessions-list::-webkit-scrollbar-track { background: var(--bg); border-radius: 10px; }
+.sessions-list::-webkit-scrollbar-thumb { background: var(--primary); border-radius: 10px; }
+
+.session-item {
+  background: var(--bg);
+  padding: 16px 20px;
+  border-radius: 20px;
+  cursor: pointer;
+  text-align: left;
+  transition: all 0.2s;
+  box-shadow: var(--shadow-clay-sm);
+}
+
+.session-item:hover {
+  transform: translateY(-2px);
+}
+
+.session-item:active {
+  transform: translateY(1px) scale(0.98);
+  box-shadow: var(--shadow-btn-active);
+}
+
+.session-item h4 {
+  color: var(--text);
+  margin-bottom: 4px;
+  font-size: 1rem;
+}
+
+.session-item p {
+  margin: 0;
+  font-size: 0.85rem;
+  color: var(--primary);
+  font-weight: 700;
+}
+
+/* =========================================
+   TOAST NOTIFICATIONS — Floating 3D Pill
+   ========================================= */
+#toast-container {
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 3000;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  pointer-events: none;
+  width: 90%;
+  max-width: 360px;
+}
+
+.toast {
+  background: var(--card-bg);
+  color: var(--text);
+  padding: 14px 24px;
+  border-radius: var(--radius-pill);
+  font-family: var(--font);
+  font-weight: 700;
+  font-size: 0.85rem;
+  box-shadow: var(--shadow-clay);
+  animation: toastIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275),
+             toastOut 0.4s 2.6s ease-in forwards;
+  pointer-events: auto;
+  text-align: center;
+}
+
+.toast.error  { border-left: 4px solid var(--danger); }
+.toast.success { border-left: 4px solid var(--success); }
+.toast.info   { border-left: 4px solid var(--primary); }
+
+@keyframes toastIn {
+  from { opacity: 0; transform: translateY(-30px) scale(0.9); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+@keyframes toastOut {
+  from { opacity: 1; transform: translateY(0); }
+  to   { opacity: 0; transform: translateY(-20px); }
+}
