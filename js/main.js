@@ -40,13 +40,24 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 async function handleConnect() {
-  showToast('Scanning for device…', 'info');
-  const success = await connectBLE(onBleData, onBleDisconnect);
+  const connectBtn = document.getElementById('btn-connect');
+  connectBtn.disabled = true;
+  connectBtn.textContent = 'Connecting…';
+
+  const success = await connectBLE(onBleData, onBleDisconnect, (progressMsg) => {
+    // Show every progress step as a toast so user sees what's happening
+    showToast(progressMsg, 'info');
+  });
+
+  connectBtn.disabled = false;
+  connectBtn.textContent = 'Connect';
+
   if (success) {
     updateConnectionStatus(true);
-    showToast('Sock Connected!', 'success');
+    showToast('🧦 Sock Connected!', 'success');
   } else {
-    showToast('Connection failed.', 'error');
+    // The progress callback already showed the error reason
+    setDisconnectedState();
   }
 }
 
@@ -67,7 +78,7 @@ function onBleDisconnect() {
     console.log("Disconnect detected. Auto-saving session...");
     const saved = saveSessionToStorage();
     stopSession();
-    resetSession(); // Clear state so next Start is fresh
+    resetSession();
     updateSessionStatus(false);
     if (saved) {
       showToast('Session auto-saved.', 'success');
@@ -134,7 +145,6 @@ function handleSaveSession() {
 }
 
 function handleStopSession() {
-  // Auto-save on stop if there is data
   if (isSessionRunning()) {
     const saved = saveSessionToStorage();
     if (saved) {
